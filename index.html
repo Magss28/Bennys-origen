@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Benny's</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="btn-abrir-menu" onclick="toggleMenu()">&#9776;</div>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="btn-cerrar" onclick="toggleMenu()">&times;</a>
+        <div class="sidebar-header">
+            <div class="sidebar-titulo">BENNY'S CUSTOMS</div>
+        </div>
+        <button class="btn-sidebar" onclick="mostrarInicio(); toggleMenu()">🏠 Inicio </button> 
+        <button class="btn-sidebar" onclick="mostrarHabitual(); toggleMenu()">📋 Vista Habitual</button>
+        <button class="btn-sidebar" onclick="mostrarCompleto(); toggleMenu()">🛠️ Vista Completa</button>
+        <button class="btn-sidebar" onclick="mostrarInfo(); toggleMenu()">ℹ️ Información</button>
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+        <button class="btn-sidebar btn-reset-sidebar" onclick="reiniciar(); toggleMenu()">🧹 Limpiar Todo</button>
+
+        <button class="btn-sidebar" onclick="mostrarFichaje(); toggleMenu()">⏱️ Fichaje</button> </div>
+
+    <div id="main">
+        
+        <div id="pantalla-inicio">
+            <div class="banner-tablet">
+                <img src="icon.png" alt="Benny's Logo" class="logo-tablet">
+            </div>
+
+            <h3 class="titulo-tablet">SISTEMA DE GESTIÓN</h3>
+            
+            <div class="fila-tablet">
+                <button class="btn-tablet btn-naranja" onclick="mostrarHabitual()">
+                    <span class="icono-tablet">📋</span>
+                    <span>HABITUAL</span>
+                </button>
+                <button class="btn-tablet btn-naranja" onclick="mostrarCompleto()">
+                    <span class="icono-tablet">🛠️</span>
+                    <span>COMPLETA</span>
+                </button>
+            </div>
+
+            <div class="grid-tablet">
+                <button class="btn-tablet-oscuro" onclick="mostrarFichaje()">
+                    <span class="icono-tablet">⏱️</span>
+                    <span>FICHAJE</span>
+                </button>
+                <button class="btn-tablet-oscuro" onclick="mostrarInfo()">
+                    <span class="icono-tablet">ℹ️</span>
+                    <span>INFORMACIÓN</span>
+                </button>
+                <button class="btn-tablet-oscuro" onclick="window.location.reload()">
+                    <span class="icono-tablet">🔄</span>
+                    <span>RECARGAR</span>
+                </button>
+                <button class="btn-tablet-oscuro" onclick="toggleMenu()">
+                    <span class="icono-tablet">☰</span>
+                    <span>MENÚ</span>
+                </button>
+            </div>
+        </div>
+
+        <h2 id="titulo-principal">Calculadora del Benny's</h2>
+
+        <div id="habitual" style="display:none;">
+            <div class="contenedor-flex">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PIEZAS</th>
+                            <th>UNIDADES</th>
+                            <th>COSTE</th>
+                            <th>PRECIO</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="subcategoria"><td colspan="5">Reparación</td></tr>
+                        <tr><td>Kit de reparación</td><td><input type="number" value="0" oninput="calcular()"></td><td>$500</td><td>$1.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Rendimiento</td></tr>
+                        <tr><td>Piezas de Rendimiento</td><td><input type="number" value="0" oninput="calcular()"></td><td>$7.000</td><td>$10.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Pintura</td></tr>
+                        <tr><td>Kit de pintura</td><td><input type="number" value="0" oninput="calcular()"></td><td>$500</td><td>$1.500</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Estética</td></tr>
+                        <tr><td>Piezas Cosméticas</td><td><input type="number" value="0" oninput="calcular()"></td><td>$2.000</td><td>$4.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Ruedas / Llantas</td></tr>
+                        <tr><td>Set de Rines</td><td><input type="number" value="0" oninput="calcular()"></td><td>$7.000</td><td>$10.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Extras</td></tr>
+                        <tr><td>Humo Neumáticos</td><td><input type="number" value="0" oninput="calcular()"></td><td>$2.500</td><td>$10.000</td><td>$0</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="paneles-control-contenedor">
+                    <div class="panel-control panel-control-izq">
+                        <div class="bloque-post">
+                            <h3>Total: $<span class="monto-total">0</span></h3>
+                            <button class="btn-accion btn-copiar" onclick="copiarTotal()">Copiar Monto</button>
+                            <button class="btn-accion btn-reiniciar" onclick="reiniciar()">Reiniciar</button>
+                        </div>
+                        <div class="bloque-post bloque-descuento">
+                            <div class="titulo-descuento">DESCUENTOS APLICADOS</div>
+                            <table class="tabla-descuento">
+                                <thead>
+                                    <tr><th>TOTAL</th><th>%</th><th>A PAGAR</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="num-azul">$0</td><td>5%</td><td class="num-verde">$0</td></tr>
+                                    <tr><td class="num-azul">$0</td><td>10%</td><td class="num-verde">$0</td></tr>
+                                    <tr><td class="num-azul">$0</td><td>15%</td><td class="num-verde">$0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bloque-post bloque-info">
+                            <div class="titulo-info">REGLAMENTO DESCUENTOS</div>
+                            <div class="contenido-info">
+                                <p><span>1.</span> El valor en <strong>A PAGAR</strong> es el monto final que debe cobrarse al cliente.</p>
+                                <p><span>2.</span> Solo por <strong>convenio</strong> o <strong>precio mecánico</strong>.</p>
+                                <p><span>3.</span> <strong>Máximo 15%</strong> de descuento permitido.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-control panel-control-der">
+                        <div class="bloque-post bloque-full-tuning">
+                            <div class="titulo-full" onclick="aplicarFullTuning()" style="cursor: pointer;">Full Tuning $120.000 (Todo Junto)</div>
+                            <div class="contenido-full">
+                                <ul>
+                                    <li><span>•</span> Motor V8: 50.000</li>
+                                    <li><span>•</span> Turbo Charger: 35.000</li>
+                                    <li><span>•</span> Frenos Cerámicos: 25.000</li>
+                                    <li><span>•</span> Llantas Slick: 7.000</li>
+                                    <li><span>•</span> Tracción AWD: 13.000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="completo" style="display:none;">
+            <div class="contenedor-flex">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PIEZAS</th>
+                            <th>UNIDADES</th>
+                            <th>PRECIO COSTE</th>
+                            <th>PRECIO</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="subcategoria"><td colspan="5">Reparación</td></tr>
+                        <tr><td>Kit de reparación</td><td><input type="number" value="0" oninput="calcular()"></td><td>$500</td><td>$1.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Rendimiento</td></tr>
+                        <tr><td>Piezas de Rendimiento</td><td><input type="number" value="0" oninput="calcular()"></td><td>$7.000</td><td>$10.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Pintura</td></tr>
+                        <tr><td>Kit de pintura</td><td><input type="number" value="0" oninput="calcular()"></td><td>$500</td><td>$1.500</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Estética</td></tr>
+                        <tr><td>Piezas Cosméticas</td><td><input type="number" value="0" oninput="calcular()"></td><td>$2.000</td><td>$4.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Ruedas / Llantas</td></tr>
+                        <tr><td>Set de Rines (Ruedas)</td><td><input type="number" value="0" oninput="calcular()"></td><td>$7.000</td><td>$10.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Humo Neumáticos</td></tr>
+                        <tr><td>Kit de Humo para neumáticos</td><td><input type="number" value="0" oninput="calcular()"></td><td>$2.500</td><td>$10.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Otros</td></tr>
+                        <tr><td>Motor V8 Upgrade</td><td><input type="number" value="0" oninput="calcular()"></td><td>$40.000</td><td>$50.000</td><td>$0</td></tr>
+                        <tr><td>Frenos cerámicos</td><td><input type="number" value="0" oninput="calcular()"></td><td>$8.000</td><td>$25.000</td><td>$0</td></tr>
+                        <tr><td>Turbo Charger</td><td><input type="number" value="0" oninput="calcular()"></td><td>$25.000</td><td>$35.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Tracción Ambas</td></tr>
+                        <tr><td>Tracción AWD</td><td><input type="number" value="0" oninput="calcular()"></td><td>$8.000</td><td>$13.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Tracción Trasera</td></tr>
+                        <tr><td>Tracción RWD</td><td><input type="number" value="0" oninput="calcular()"></td><td>$7.000</td><td>$12.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Tracción Delantera</td></tr>
+                        <tr><td>Tracción FWD</td><td><input type="number" value="0" oninput="calcular()"></td><td>$6.000</td><td>$11.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Neumáticos</td></tr>
+                        <tr><td>Slick</td><td><input type="number" value="0" oninput="calcular()"></td><td>$4.000</td><td>$7.000</td><td>$0</td></tr>
+                        <tr><td>Semi-Slick</td><td><input type="number" value="0" oninput="calcular()"></td><td>$3.500</td><td>$7.000</td><td>$0</td></tr>
+                        <tr><td>Offroad</td><td><input type="number" value="0" oninput="calcular()"></td><td>$4.500</td><td>$7.000</td><td>$0</td></tr>
+                        
+                        <tr class="subcategoria"><td colspan="5">Extras</td></tr>
+                        <tr><td>Stance o suspensión</td><td><input type="number" value="0" oninput="calcular()"></td><td>$3.000</td><td>$10.000</td><td>$0</td></tr>
+                        <tr><td>Extras</td><td><input type="number" value="0" oninput="calcular()"></td><td>$4.000</td><td>$10.000</td><td>$0</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="paneles-control-contenedor">
+                    <div class="panel-control panel-control-izq">
+                        <div class="bloque-post">
+                            <h3>Total: $<span class="monto-total">0</span></h3>
+                            <button class="btn-accion btn-copiar" onclick="copiarTotal()">Copiar Monto</button>
+                            <button class="btn-accion btn-reiniciar" onclick="reiniciar()">Reiniciar</button>
+                        </div>
+                        <div class="bloque-post bloque-descuento">
+                            <div class="titulo-descuento">DESCUENTOS APLICADOS</div>
+                            <table class="tabla-descuento">
+                                <thead>
+                                    <tr><th>TOTAL</th><th>%</th><th>A PAGAR</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="num-azul">$0</td><td>5%</td><td class="num-verde">$0</td></tr>
+                                    <tr><td class="num-azul">$0</td><td>10%</td><td class="num-verde">$0</td></tr>
+                                    <tr><td class="num-azul">$0</td><td>15%</td><td class="num-verde">$0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bloque-post bloque-info">
+                            <div class="titulo-info">REGLAMENTO DESCUENTOS</div>
+                            <div class="contenido-info">
+                                <p><span>1.</span> El valor en <strong>A PAGAR</strong> es el monto final que debe cobrarse al cliente.</p>
+                                <p><span>2.</span> Solo por <strong>convenio</strong> o <strong>precio mecánico</strong>.</p>
+                                <p><span>3.</span> <strong>Máximo 15%</strong> de descuento permitido.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-control panel-control-der">
+                        <div class="bloque-post bloque-full-tuning">
+                            <div class="titulo-full" onclick="aplicarFullTuning()" style="cursor: pointer;">Full Tuning $120.000 (Todo Junto)</div>
+                            <div class="contenido-full">
+                                <ul>
+                                    <li><span>•</span> Motor V8: 50.000</li>
+                                    <li><span>•</span> Turbo Charger: 35.000</li>
+                                    <li><span>•</span> Frenos Cerámicos: 25.000</li>
+                                    <li><span>•</span> Llantas Slick: 7.000</li>
+                                    <li><span>•</span> Tracción AWD: 13.000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vista-info" style="display:none;">
+            <div class="banner-contenedor">
+                <img src="icon.png" alt="Benny's Icon" class="banner-img">
+            </div>
+            
+            <div class="grid-info">
+                <div class="card-info info-normativa">
+                    <div class="card-header">📋 NORMATIVA TALLER</div>
+                    <div class="card-body">
+                        <p>1. Kit de Stance por <b>$5.000</b> (Sin buguear).</p>
+                        <p>2. Neones <b>PROHIBIDO</b> instalarlos.</p>
+                        <p>3. Descuento mecánicos: <b>15%</b> en tuneos propios.</p>
+                        <p>4. Para convenios: Factura de <b>$1 (F6)</b> obligatoria.</p>
+                    </div>
+                </div>
+
+                <div class="card-info card-azul">
+                    <div class="card-header">🤝 CONVENIOS</div>
+                    <div class="card-body">
+                        <p class="texto-instruccion">
+                            - PARA SABER DE QUE NEGOCIO ES, PEDID QUE OS HAGA UN FACTURA DEL MISMO NEGOCIO DE 1$ PARA COMPROBAR QUE ES DE ESE NEGOCIO (CON EL MENU DE F6)
+                        </p>
+                        <ul class="lista-convenios">
+                            <li>*CONVENIO CON EL UWU CAFE DEL 5% A LA HORA DE HACERLE CUALQUIER COSA RELACIONADA CON EL MECANICO</li>
+                            <li>*CONVENIO del 5% con (DIGITALDEL DEL PERRO: JOHN WICK)</li>
+                            <li>*CONVENIO DEL 5% con (BAHAMAS: entrada vip a 5k y descuentos en alcohol - Dylan Montero)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="seccion-fichaje" style="display:none;">
+            <div class="contenedor-flex">
+                <div class="panel-control">
+                    <div class="bloque-post">
+                        <div class="titulo-info">REGISTRO DE SERVICIO</div>
+                        <div class="contenido-fichaje">
+                            <label for="empleado-select">Mecánico:</label>
+                            <select id="empleado-select" class="input-fichaje">
+                                <option value="" disabled selected>Selecciona tu nombre...</option>
+                                <option value="Alyssa Sanchez">Alyssa Sanchez</option>
+                                <option value="Ares Martinez">Ares Martinez</option>
+                                <option value="Ariana Bianchi">Ariana Bianchi</option>
+                                <option value="Axel Orion">Axel Orion</option>
+                                <option value="Bastian Boskar">Bastian Boskar</option>
+                                <option value="Catalina Villalobos">Catalina Villalobos</option>
+                                <option value="Dopecin Maria Calahan">Dopecin Maria Calahan</option>
+                                <option value="Jean Uribe">Jean Uribe</option>
+                                <option value="Lil T Slickk Reaper">Lil T Slickk Reaper</option>
+                                <option value="Miguel Espin Pancho">Miguel Espin Pancho</option>
+                                <option value="Paula Kelley">Paula Kelley</option>
+                                <option value="Racan Auditore">Racan Auditore</option>
+                                <option value="Rene Duskwood">Rene Duskwood</option>
+                                <option value="Roland Brooklyn">Roland Brooklyn</option>
+                                <option value="Russell Kelley">Russell Kelley</option>
+                            </select>
+
+                            <label for="capital-input">Capital en Caja ($):</label>
+                            <input type="number" id="capital-input" class="input-fichaje" placeholder="Ej: 100000">
+                            
+                            <div id="estado-servicio" class="estado-off">Estado: Fuera de Servicio</div>
+                            
+                            <button id="btn-fichar" class="btn-accion btn-reiniciar" onclick="gestionarFichaje()">Entrar de Servicio</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-control">
+                    <div class="bloque-post">
+                        <div class="titulo-descuento">PRODUCTIVIDAD SEMANAL</div>
+                        <table class="tabla-descuento" id="tabla-productividad">
+                            <thead>
+                                <tr>
+                                    <th>MECÁNICO</th>
+                                    <th>TOTAL GENERADO</th>
+                                    <th>TIEMPO</th> </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Alyssa Sanchez</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Ares Martinez</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Ariana Bianchi</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Axel Orion</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Bastian Boskar</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Catalina Villalobos</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Dopecin Maria Calahan</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Jean Uribe</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Lil T Slickk Reaper</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Miguel Espin Pancho</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Paula Kelley</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Racan Auditore</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Rene Duskwood</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Roland Brooklyn</td><td class="num-verde">$0</td></tr>
+                                <tr><td>Russell Kelley</td><td class="num-verde">$0</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>
