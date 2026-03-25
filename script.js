@@ -234,11 +234,9 @@ function actualizarTablaProductividad() {
                             f.cells[1].innerText = "$" + Math.round(totalLimpio).toLocaleString();
                             
                     
-                            if (f.cells.length < 3) {
+                            if (f.cells.length < 2) {
                                 f.insertCell(2);
                             }
-                            f.cells[2].innerText = m.tiempo || "0h 0m";
-                            f.cells[2].style.color = "#3498db"; 
 
                         
                             if (m.estado === "FICHANDO" || m.estado === "TRABAJANDO") {
